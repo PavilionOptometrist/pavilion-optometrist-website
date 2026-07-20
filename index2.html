@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pavilion Optometrist · Info Centre</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* === Your existing styles (kept exactly as they were) === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Helvetica Neue', system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #f5f7fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .clinic-card {
+      max-width: 1380px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 56px;
+      padding: 36px 42px 40px;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .clinic-card::before {
+      content: '';
+      position: absolute;
+      top: -25%;
+      left: -10%;
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(200, 50, 50, 0.06) 0%, rgba(200, 50, 50, 0) 70%);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: orbFlow 20s infinite alternate ease-in-out;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .clinic-card::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      right: -5%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(200, 50, 50, 0.05) 0%, rgba(200, 50, 50, 0) 70%);
+      border-radius: 50%;
+      filter: blur(100px);
+      animation: orbFlow 26s infinite alternate-reverse ease-in-out;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @keyframes orbFlow {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      100% { transform: translate(60px, 40px) scale(1.3) rotate(8deg); }
+    }
+    .clinic-card > * {
+      position: relative;
+      z-index: 3;
+    }
+
+    /* ----- navigation (red & dark) ----- */
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      margin-bottom: 24px;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .logo-text .pavilion {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #c0392b 0%, #8e44ad 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo-text .optometrist {
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      color: #8e44ad;
+      margin-top: -2px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: rgba(26, 26, 46, 0.6);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      transition: all 0.25s ease;
+      padding: 8px 4px;
+      position: relative;
+      cursor: pointer;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2.5px;
+      background: linear-gradient(90deg, #c0392b, #8e44ad);
+      transition: width 0.3s ease;
+      border-radius: 4px;
+    }
+    .nav-links a:hover {
+      color: #1a1a2e;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .nav-links a.active-page {
+      color: #1a1a2e;
+      font-weight: 600;
+    }
+    .nav-links a.active-page::after {
+      width: 100%;
+      background: linear-gradient(90deg, #c0392b, #8e44ad);
+    }
+
+    .book-now-btn {
+      background: linear-gradient(145deg, #c0392b, #8e44ad);
+      padding: 10px 30px;
+      border-radius: 60px;
+      color: #ffffff !important;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(192, 57, 43, 0.25);
+      transition: 0.25s;
+      border: none;
+    }
+    .book-now-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 35px rgba(192, 57, 43, 0.35);
+      color: #fff !important;
+    }
+    .book-now-btn::after {
+      display: none !important;
+    }
+
+    /* hero */
+    .hero-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin: 4px 0 28px;
+      background: rgba(192, 57, 43, 0.02);
+      border-radius: 40px;
+      padding: 20px 24px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+    .hero-title h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #1a1a2e, #8e44ad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+    .hero-title p {
+      color: rgba(26, 26, 46, 0.6);
+      font-size: 1.1rem;
+      margin-top: 8px;
+      padding-left: 20px;
+      border-left: 3px solid #c0392b;
+    }
+    .hero-booking {
+      background: rgba(192, 57, 43, 0.04);
+      backdrop-filter: blur(6px);
+      padding: 14px 32px;
+      border-radius: 60px;
+      border: 1px solid rgba(192, 57, 43, 0.1);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.02);
+      transition: 0.3s;
+    }
+    .hero-booking:hover {
+      border-color: #c0392b88;
+      box-shadow: 0 8px 35px rgba(192, 57, 43, 0.08);
+    }
+    .hero-booking a {
+      color: #1a1a2e;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .hero-booking i {
+      color: #c0392b;
+      font-size: 1.4rem;
+    }
+
+    /* glass panels – light theme */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 40px;
+      padding: 30px 34px 34px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.02);
+      transition: 0.3s ease;
+    }
+    .glass-panel:hover {
+      border-color: rgba(192, 57, 43, 0.12);
+      box-shadow: 0 12px 40px -8px rgba(192, 57, 43, 0.06);
+      transform: translateY(-2px);
+    }
+    .glass-panel h2 {
+      color: #1a1a2e;
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+      padding-bottom: 16px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .glass-panel h2 i {
+      color: #c0392b;
+      font-size: 1.8rem;
+    }
+    .glass-panel p {
+      color: rgba(26, 26, 46, 0.75);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+    .highlight {
+      color: #8e44ad;
+      font-weight: 600;
+    }
+
+    .contact-detail {
+      margin-top: 18px;
+      background: rgba(192, 57, 43, 0.02);
+      border-radius: 24px;
+      padding: 16px 20px;
+      border-left: 2px solid #c0392b55;
+    }
+    .contact-detail div {
+      margin-top: 4px;
+    }
+    .contact-detail i {
+      color: #c0392b;
+      width: 28px;
+      margin-right: 8px;
+    }
+    .contact-detail span {
+      color: rgba(26, 26, 46, 0.65);
+      font-size: 0.95rem;
+    }
+
+    .home-section {
+      margin-bottom: 40px;
+    }
+    .home-section:last-child {
+      margin-bottom: 0;
+    }
+
+    /* team grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 28px;
+      margin-top: 16px;
+    }
+    .team-card {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 32px;
+      padding: 22px 18px 26px;
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .team-card:hover {
+      border-color: rgba(192, 57, 43, 0.15);
+      background: #ffffff;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    }
+    .team-card .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      overflow: hidden;
+      border: 2px solid rgba(192, 57, 43, 0.12);
+      background: #f0f4ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .team-card .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .team-card .avatar i {
+      font-size: 3.2rem;
+      color: #c0392b66;
+    }
+    .team-card .name {
+      color: #1a1a2e;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .team-card .role {
+      color: #8e44ad;
+      font-size: 0.78rem;
+      margin-top: 4px;
+    }
+    .team-card .bio-btn {
+      margin-top: 14px;
+      background: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      padding: 6px 24px;
+      border-radius: 40px;
+      color: #8e44ad;
+      font-size: 0.7rem;
+      font-weight: 500;
+      transition: 0.25s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .team-card .bio-btn i {
+      color: #c0392b;
+      font-size: 0.65rem;
+    }
+    .team-card .bio-btn:hover {
+      background: rgba(192, 57, 43, 0.04);
+      border-color: #c0392b88;
+      color: #1a1a2e;
+    }
+    .team-bio {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      margin-top: 0;
+      width: 100%;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: rgba(26, 26, 46, 0.7);
+      text-align: left;
+      padding: 0 16px;
+    }
+    .team-bio.open {
+      max-height: 300px;
+      opacity: 1;
+      padding: 16px;
+      margin-top: 12px;
+      border-top: 1px solid rgba(192, 57, 43, 0.08);
+    }
+
+    /* services grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 10px;
+    }
+    .service-item {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+      border-radius: 30px;
+      padding: 24px 26px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      transition: 0.3s;
+      position: relative;
+    }
+    .service-item:hover {
+      border-color: rgba(192, 57, 43, 0.15);
+      background: #ffffff;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
+      transform: scale(1.01);
+    }
+    .service-item h3 {
+      color: #1a1a2e;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .service-item h3 i {
+      color: #c0392b;
+      font-size: 1.3rem;
+    }
+    .service-item p {
+      color: rgba(26, 26, 46, 0.6);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .service-item .show-less {
+      color: rgba(26, 26, 46, 0.2);
+      font-size: 0.65rem;
+      margin-top: 10px;
+      display: inline-block;
+      letter-spacing: 1px;
+    }
+
+    /* info grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 10px;
+    }
+    @media (max-width: 600px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .info-card {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 28px;
+      padding: 22px 26px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      transition: 0.3s;
+    }
+    .info-card:hover {
+      border-color: rgba(192, 57, 43, 0.12);
+    }
+    .info-card h3 {
+      color: #1a1a2e;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .info-card h3 i {
+      color: #c0392b;
+    }
+    .info-card p,
+    .info-card li {
+      color: rgba(26, 26, 46, 0.65);
+      line-height: 1.7;
+      font-size: 0.95rem;
+      list-style: none;
+    }
+    .info-card ul {
+      padding-left: 0;
+    }
+
+    /* driver banner */
+    .driver-banner {
+      background: rgba(192, 57, 43, 0.02);
+      border-radius: 28px;
+      padding: 20px 28px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .driver-banner .left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 40px;
+    }
+    .driver-banner .left span {
+      color: rgba(26, 26, 46, 0.7);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .driver-banner .left i {
+      color: #c0392b;
+      width: 22px;
+    }
+    .driver-banner .right {
+      color: rgba(26, 26, 46, 0.3);
+      font-size: 0.75rem;
+    }
+
+    /* price table – professional layout */
+    .price-table {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 30px;
+      padding: 16px 20px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      transition: 0.2s;
+    }
+    .price-row:hover {
+      border-color: #c0392b44;
+      background: #fff;
+    }
+    .price-row .label {
+      color: rgba(26, 26, 46, 0.75);
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .price-row .amount {
+      color: #c0392b;
+      font-weight: 700;
+      font-size: 1rem;
+      background: rgba(192, 57, 43, 0.04);
+      padding: 4px 18px;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+    }
+    .price-row .amount small {
+      font-weight: 400;
+      color: rgba(26, 26, 46, 0.3);
+      font-size: 0.7rem;
+      margin-left: 4px;
+    }
+
+    /* social section */
+    .social-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 30px;
+      align-items: center;
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+    .social-section .social-links {
+      display: flex;
+      gap: 14px;
+    }
+    .social-section .social-links a {
+      color: rgba(26, 26, 46, 0.3);
+      font-size: 1.6rem;
+      transition: 0.25s;
+      text-decoration: none;
+    }
+    .social-section .social-links a:hover {
+      color: #c0392b;
+      transform: scale(1.1);
+    }
+    .social-section .social-text {
+      color: rgba(26, 26, 46, 0.4);
+      font-size: 0.85rem;
+    }
+
+    /* hidden pages */
+    .page-section {
+      display: block;
+    }
+    .page-section.hidden {
+      display: none;
+    }
+
+    /* footer */
+    .tiny-meta {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 18px;
+      margin-top: 32px;
+      color: rgba(26, 26, 46, 0.15);
+      font-size: 0.7rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.02);
+      padding-top: 18px;
+      flex-wrap: wrap;
+    }
+    .tiny-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .keyboard-hint {
+      background: rgba(0, 0, 0, 0.01);
+      padding: 4px 16px;
+      border-radius: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+
+    /* brands grid – image rotates, label stays static */
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 30px 20px;
+      margin: 28px 0 20px;
+      perspective: 1200px;
+    }
+    .brand-card {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 40px;
+      padding: 18px 8px;
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      transition: 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 140px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+    .brand-card:hover {
+      border-color: rgba(192, 57, 43, 0.2);
+      background: #ffffff;
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(192, 57, 43, 0.08);
+    }
+    .brand-card .brand-img-wrap {
+      display: inline-block;
+      animation: ferrisWheel 10s infinite linear;
+      transform-style: preserve-3d;
+      transition: animation-play-state 0.2s;
+    }
+    .brand-card:hover .brand-img-wrap {
+      animation-play-state: paused;
+    }
+    @keyframes ferrisWheel {
+      0% { transform: rotateY(0deg) translateZ(0px); }
+      25% { transform: rotateY(90deg) translateZ(10px); }
+      50% { transform: rotateY(180deg) translateZ(0px); }
+      75% { transform: rotateY(270deg) translateZ(-10px); }
+      100% { transform: rotateY(360deg) translateZ(0px); }
+    }
+    .brand-card img {
+      max-width: 350px;
+      max-height: 250px;
+      object-fit: contain;
+      filter: grayscale(0.15);
+      transition: 0.3s;
+      border-radius: 12px;
+      display: block;
+    }
+    .brand-card:hover img {
+      filter: grayscale(0);
+    }
+    .brand-card .brand-name {
+      font-weight: 600;
+      color: #1a1a2e;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 2px 14px;
+      border-radius: 40px;
+      margin-top: 10px;
+      display: inline-block;
+      animation: none;
+      transform: none;
+    }
+
+    .practice-img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 30px;
+      margin: 16px 0 8px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    /* booking */
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .booking-form input,
+    .booking-form select,
+    .booking-form textarea {
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      border-radius: 30px;
+      padding: 16px 22px;
+      color: #1a1a2e;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.2s;
+    }
+    .booking-form input:focus,
+    .booking-form select:focus,
+    .booking-form textarea:focus {
+      border-color: #c0392b88;
+      box-shadow: 0 0 30px rgba(192, 57, 43, 0.04);
+    }
+    .booking-form select option {
+      background: #ffffff;
+    }
+    .booking-form .row2 {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .booking-form .row2 input,
+    .booking-form .row2 select {
+      flex: 1;
+      min-width: 140px;
+    }
+    .book-submit {
+      background: linear-gradient(145deg, #c0392b, #8e44ad);
+      border: none;
+      padding: 16px 36px;
+      border-radius: 60px;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.25s;
+      width: fit-content;
+    }
+    .book-submit:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 35px rgba(192, 57, 43, 0.25);
+    }
+
+    /* ===== INFO CENTRE STYLES ===== */
+    .info-banner {
+      width: 100%;
+      height: 260px;
+      position: relative;
+      border-radius: 30px;
+      overflow: hidden;
+      margin-bottom: 28px;
+      background: linear-gradient(135deg, #1a1a2e, #2d1b4e);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+    .info-banner .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+      color: white;
+    }
+    .info-banner .overlay h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+    .info-banner .overlay p {
+      font-size: 1.05rem;
+      opacity: 0.85;
+      max-width: 600px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    }
+    .info-banner .overlay .search-box {
+      margin-top: 18px;
+      display: flex;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      border-radius: 60px;
+      padding: 4px;
+      max-width: 460px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .info-banner .overlay .search-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 14px 24px;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      min-width: 0;
+    }
+    .info-banner .overlay .search-box input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .info-banner .overlay .search-box button {
+      background: linear-gradient(145deg, #c0392b, #8e44ad);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 60px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+    .info-banner .overlay .search-box button:hover {
+      transform: scale(1.02);
+      opacity: 0.9;
+    }
+
+    /* Category Grid */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 20px 0 30px;
+    }
+    .category-card {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 28px;
+      padding: 24px 26px;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      transition: 0.3s;
+      border-left: 4px solid #c0392b;
+    }
+    .category-card:hover {
+      background: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      border-color: #c0392b;
+    }
+    .category-card h3 {
+      color: #1a1a2e;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .category-card h3 i {
+      color: #c0392b;
+      margin-right: 8px;
+    }
+    .category-card p {
+      color: rgba(26, 26, 46, 0.65);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .category-card .explore-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #c0392b;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: 0.2s;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .category-card .explore-link:hover {
+      color: #8e44ad;
+      transform: translateX(4px);
+    }
+    .category-card .explore-link i {
+      margin-left: 6px;
+      transition: 0.2s;
+    }
+    .category-card .explore-link:hover i {
+      transform: translateX(4px);
+    }
+
+    /* Topic Grid for sub-items */
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 16px 0 20px;
+    }
+    .topic-card {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 20px;
+      padding: 18px 20px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      transition: 0.3s;
+      overflow: hidden;
+    }
+    .topic-card:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      border-color: rgba(192, 57, 43, 0.12);
+    }
+    .topic-card h4 {
+      color: #1a1a2e;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .topic-card p {
+      color: rgba(26, 26, 46, 0.55);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .topic-card .topic-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: #c0392b;
+      font-weight: 500;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      transition: 0.2s;
+    }
+    .topic-card .topic-link:hover {
+      color: #8e44ad;
+    }
+    .topic-card .topic-link i {
+      transition: 0.2s;
+    }
+    .topic-card .topic-link:hover i {
+      transform: translateX(4px);
+    }
+    .topic-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 16px;
+      margin-top: 0;
+      width: 100%;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: rgba(26, 26, 46, 0.7);
+      text-align: left;
+      padding: 0 16px;
+    }
+    .topic-detail.open {
+      max-height: 400px;
+      opacity: 1;
+      padding: 16px;
+      margin-top: 12px;
+      border-top: 1px solid rgba(192, 57, 43, 0.08);
+    }
+    .topic-detail ul, .topic-detail ol {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+    .topic-detail li {
+      margin-bottom: 4px;
+    }
+
+    .info-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(192, 57, 43, 0.15), transparent);
+      margin: 30px 0;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .faq-item {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    .faq-item:hover {
+      border-color: rgba(192, 57, 43, 0.08);
+    }
+    .faq-question {
+      padding: 18px 24px;
+      font-weight: 600;
+      color: #1a1a2e;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: 0.2s;
+    }
+    .faq-question:hover {
+      background: rgba(192, 57, 43, 0.02);
+    }
+    .faq-question i {
+      color: #c0392b;
+      transition: 0.3s;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0 24px;
+      color: rgba(26, 26, 46, 0.65);
+      line-height: 1.7;
+    }
+    .faq-answer.open {
+      max-height: 300px;
+      padding: 0 24px 20px;
+    }
+    .faq-item.open .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .promo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .promo-item {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 30px;
+      padding: 20px 26px;
+      border-left: 4px solid #c0392b;
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      border-left-width: 6px;
+      transition: 0.3s;
+    }
+    .promo-item:hover {
+      background: #ffffff;
+      border-color: rgba(192, 57, 43, 0.15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+    }
+    .promo-item strong {
+      color: #1a1a2e;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .promo-item span {
+      color: rgba(26, 26, 46, 0.6);
+      font-size: 0.95rem;
+    }
+    .promo-item .promo-tag {
+      display: inline-block;
+      background: #c0392b10;
+      color: #c0392b;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 12px;
+      border-radius: 40px;
+      margin-top: 6px;
+      letter-spacing: 0.3px;
+    }
+    .promo-empty {
+      color: rgba(26, 26, 46, 0.3);
+      font-style: italic;
+      padding: 30px 0;
+      text-align: center;
+    }
+
+    @media (max-width: 820px) {
+      .hero-title h1 {
+        font-size: 2.8rem;
+      }
+      .nav-links {
+        gap: 8px 12px;
+        margin-top: 16px;
+      }
+      .clinic-card {
+        padding: 22px;
+      }
+      .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 18px;
+      }
+      .info-banner {
+        height: 220px;
+      }
+      .info-banner .overlay h1 {
+        font-size: 2rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero-booking {
+        padding: 8px 18px;
+        margin-top: 12px;
+      }
+      .logo-text .pavilion {
+        font-size: 1.6rem;
+      }
+      .logo-text .optometrist {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+      }
+      .team-card .avatar {
+        width: 80px;
+        height: 80px;
+      }
+      .driver-banner .left {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .info-banner {
+        height: 200px;
+      }
+      .info-banner .overlay h1 {
+        font-size: 1.5rem;
+      }
+      .info-banner .overlay .search-box {
+        flex-direction: column;
+        background: transparent;
+        gap: 10px;
+      }
+      .info-banner .overlay .search-box input {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 60px;
+      }
+      .info-banner .overlay .search-box button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head><body>
+<div class="clinic-card" id="app">
+
+  <!-- navigation -->
+  <div class="nav-bar">
+    <div class="logo-area">
+      <div class="logo-text">
+        <span class="pavilion">PAVILION</span>
+        <span class="optometrist">OPTOMETRIST</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a class="active-page" data-page="home">HOME</a>
+      <a data-page="about">ABOUT</a>
+      <a data-page="services">SERVICES</a>
+      <a data-page="team">TEAM</a>
+      <a data-page="brands">BRANDS &amp; PRICING</a>
+      <a data-page="info">INFO CENTRE</a>
+      <a data-page="promotions">PROMOTIONS</a>
+      <a class="book-now-btn" data-page="book"><i class="fas fa-calendar-check" style="margin-right:8px;"></i>BOOK NOW</a>
+    </div>
+  </div>
+
+  <!-- ===== HOME PAGE (visible by default) ===== -->
+  <div id="page-home" class="page-section">
+    <div class="hero-header">
+      <div class="hero-title"><h1>Pavilion Optometrist</h1><p>Affordable, quality optometry · Durban</p></div>
+      <div class="hero-booking"><a href="#"><i class="fas fa-chevron-circle-right"></i> MAKE A BOOKING</a></div>
+    </div>
+    <div class="home-section">
+      <div class="glass-panel">
+        <h2><i class="fas fa-circle-info"></i> About Our Practice</h2>
+        <img src="pav/practice.png" alt="Pavilion Optometrist practice" class="practice-img" />
+        <p><span class="highlight">Pavilion Optometrist</span> is a modern, patient-first practice serving the Durban community. Our practice is led by <span class="highlight">Dilip Hansjee</span>, a dedicated optometrist who believes in building lasting relationships through professionalism and genuine care.</p>
+        <p style="margin-top:14px;">We offer comprehensive eye care services, from routine eye exams to advanced contact lens fittings. Our team is committed to making clear and comfortable vision a reality for every patient, based on individual needs.</p>
+        <div class="contact-detail">
+          <div><i class="fas fa-phone-alt"></i> <span> 068 763 9237/ 079 568 9076</span></div>
+          <div><i class="fas fa-map-pin"></i> <span>Shop 8b The Pavilion Shopping Center (Inside Checkers Hyper)</span></div>
+          <div><i class="fas fa-envelope"></i> <span>pavilionoptometrist@gmail.com</span></div>
+          <div><i class="fas fa-location-dot"></i> <span>111 Jack Martens Drive, Dawncliffe, Westville, 3629</span></div>
+        </div>
+        <div class="info-grid" style="margin-top:20px;">
+          <div class="info-card"><h3><i class="fas fa-clock"></i> Trading Hours</h3><p><strong>Monday – Saturday</strong><br>9am – 5pm</p><p style="margin-top:6px;"><strong>Sundays</strong><br>9am – 2pm</p></div>
+          <div class="info-card"><h3><i class="fas fa-map-marker-alt"></i> Location</h3><p>The Pavilion Mall<br>111 Jack Martens Drive, 3629<br><span style="color:rgba(26,26,46,0.4);font-size:0.85rem;">Shop 8b · Inside Checkers Hyper</span></p></div>
+        </div>
+        <div class="social-section">
+          <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61591218286791" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/pavoptometrist/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com/@pav_optometrist" target="_blank"><i class="fab fa-tiktok"></i></a>
+            
+          </div>
+          <div class="social-text"><i class="fas fa-share-alt" style="color:#c0392b;margin-right:8px;"></i>Follow us for eye care tips, promotions, and community updates. <strong style="color:rgba(26,26,46,0.3);">#EyeCareWeCare</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="home-section">
+      <div class="glass-panel">
+        <h2><i class="fas fa-users"></i> Our Team</h2>
+        <p style="color:rgba(26,26,46,0.4);font-size:0.95rem;margin-bottom:8px;">We are passionate about helping you enjoy better vision without compromising on quality, using advanced eye care technology and premium ZEISS lenses tailored to your needs.</p>
+        <div class="team-grid">
+          <div class="team-card">
+            <div class="avatar"><img src="pav/marketing.png" alt="Diyajal"></div>
+            <div class="name">Diyajal</div>
+            <div class="role">Marketing Department</div>
+            <div class="bio-btn" data-bio="responsible for the marketing and brand presence of Pavilion Optometrist. She manages social media content, digital marketing campaigns, patient engagement initiatives, and promotional activities to help educate the community about eye health and vision care. Her creativity and strategic approach ensure that Pavilion Optometrist remains connected with patients while building a strong and trusted brand in the community."><i class="fas fa-arrow-right"></i> VIEW BIO</div>
+            <div class="team-bio"></div>
+          </div>
+          <div class="team-card">
+            <div class="avatar"><img src="pav/optical.png" alt="Mohammed"></div>
+            <div class="name">Mohammed</div>
+            <div class="role">Optical Assistant</div>
+            <div class="bio-btn" data-bio="A dedicated Optical Assistant at Pavilion Optometrist, committed to providing friendly and efficient support to every patient. He assists with patient reception, appointment scheduling, frame selection, spectacle dispensing, and ensuring a smooth experience throughout the patient journey. His attention to detail and passion for customer service help patients feel comfortable and confident in their eyewear choices."><i class="fas fa-arrow-right"></i> VIEW BIO</div>
+            <div class="team-bio"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="home-section">
+      <div class="glass-panel">
+        <h2><i class="fas fa-bars"></i> Our Services</h2>
+        <div class="services-grid">
+          <div class="service-item"><h3><i class="fas fa-eye"></i> Comprehensive Eye Examinations</h3><p>We provide a range of eye examinations. Having your eyes tested regularly can also result in early detection of a serious health risk. Our aim is to make clear and comfortable vision a reality for all our patients based on each patient's needs.</p><span class="show-less">SHOW LESS</span></div>
+          <div class="service-item"><h3><i class="fas fa-chart-bar"></i> Visual Acuity Tests</h3><p>This test is used to measure the sharpness and clarity of your vision. Testing both your near and distance vision using eye charts and different lenses we can determine how to improve your vision.</p><span class="show-less">SHOW LESS</span></div>
+          <div class="service-item"><h3><i class="fas fa-glasses"></i> Frame Selection and Assistance</h3><p>Frames are more than just corrective eyewear; they become part of your daily appurtenance. Our team are here to help choose the perfect frame to meet your needs and preferences.</p><span class="show-less">SHOW LESS</span></div>
+          <div class="service-item"><h3><i class="fas fa-contact-book"></i> Contact Lens Consultation</h3><p>Starting with an eye health assessment we can determine if you are able to wear Contact Lenses. Once you are cleared you are fitted and the particular types of lenses are discussed to determine the best option for your lifestyle.</p><span class="show-less">SHOW LESS</span></div>
+          <div class="service-item"><h3><i class="fas fa-tools"></i> Frame Adjustments &amp; Repairs</h3><p>From time to time you may want your Frames adjusted or repaired. Our skilled opticians can adjust the bridge, nose pads and temples to ensure the proper fit to your face.</p><span class="show-less">SHOW LESS</span></div>
+          <div class="service-item"><h3><i class="fas fa-store"></i> Frame Sales</h3><p>We have a wide range of frames from a variety of brands to choose from. These frames can be fitted with lenses to meet all your needs such as, indoor use, outdoor use, reading, driving and more.</p><span class="show-less">SHOW LESS</span></div>
+        </div>
+        <div class="driver-banner" style="margin-top:20px;">
+          <div class="left">
+            <span><i class="fas fa-id-card"></i> Driver's Certificate</span>
+            <span><i class="fas fa-truck"></i> PDP (Public Driver's Permit)</span>
+            <span><i class="fas fa-car"></i> Driver's License &amp; Renewal</span>
+            <span><i class="fas fa-graduation-cap"></i> Learner's License</span>
+          </div>
+          <div class="right"><i class="fas fa-info-circle"></i> Bring ID &amp; spectacles if worn</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT PAGE ===== -->
+  <div id="page-about" class="page-section hidden">
+    <div class="glass-panel" style="margin:20px 0;">
+      <h2><i class="fas fa-circle-info"></i> About Pavilion Optometrist</h2>
+      <img src="pav/practice.png" alt="Pavilion Optometrist practice" class="practice-img" />
+      <p>We are a dedicated optometry practice in Durban, committed to offering affordable, high-quality eye care. Our lead optometrist <strong>Dilip Hansjee</strong> has built a practice that prioritises patient relationships and clinical excellence.</p>
+      <p style="margin-top:16px;">From comprehensive eye tests to advanced lens solutions, we use the latest technology to ensure you see the world clearly.</p>
+      <div class="contact-detail" style="margin-top:20px;">
+        <div><i class="fas fa-phone-alt"></i> <span>068 763 9237 / 079 568 9076</span></div>
+        <div><i class="fas fa-map-pin"></i> <span>Shop 8b The Pavilion Shopping Center (Inside Checkers Hyper)</span></div>
+        <div><i class="fas fa-envelope"></i> <span>pavilionoptometrist@gmail.com</span></div>
+        <div><i class="fas fa-location-dot"></i> <span>111 Jack Martens Drive, Dawncliffe, Westville, 3629</span></div>
+      </div>
+      <div class="social-section" style="margin-top:16px;">
+        <div class="social-links">
+          <a href="https://www.facebook.com/profile.php?id=61591218286791" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/pavoptometrist/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@pav_optometrist" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="social-text">Connect with us for updates and eye care tips. <strong>#EyeCareWeCare</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SERVICES PAGE ===== -->
+  <div id="page-services" class="page-section hidden">
+    <div class="glass-panel" style="margin:20px 0;">
+      <h2><i class="fas fa-bars"></i> All Services</h2>
+      <div class="services-grid">
+        <div class="service-item"><h3><i class="fas fa-eye"></i> Comprehensive Eye Examinations</h3><p>We provide a range of eye examinations. Having your eyes tested regularly can also result in early detection of a serious health risk.</p><span class="show-less">SHOW LESS</span></div>
+        <div class="service-item"><h3><i class="fas fa-chart-bar"></i> Visual Acuity Tests</h3><p>This test is used to measure the sharpness and clarity of your vision. Testing both near and distance vision using eye charts and different lenses.</p><span class="show-less">SHOW LESS</span></div>
+        <div class="service-item"><h3><i class="fas fa-glasses"></i> Frame Selection and Assistance</h3><p>Frames are more than just corrective eyewear; they become part of your daily appurtenance. Our team are here to help choose the perfect frame.</p><span class="show-less">SHOW LESS</span></div>
+        <div class="service-item"><h3><i class="fas fa-contact-book"></i> Contact Lens Consultation</h3><p>Starting with an eye health assessment we can determine if you are able to wear Contact Lenses. Once cleared you are fitted and the best option is discussed.</p><span class="show-less">SHOW LESS</span></div>
+        <div class="service-item"><h3><i class="fas fa-tools"></i> Frame Adjustments &amp; Repairs</h3><p>Our skilled opticians can adjust the bridge, nose pads and temples to ensure the proper fit to your face.</p><span class="show-less">SHOW LESS</span></div>
+        <div class="service-item"><h3><i class="fas fa-store"></i> Frame Sales</h3><p>We have a wide range of frames from a variety of brands to choose from. Fitted with lenses for indoor, outdoor, reading, driving and more.</p><span class="show-less">SHOW LESS</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TEAM PAGE ===== -->
+  <div id="page-team" class="page-section hidden">
+    <div class="glass-panel" style="margin:20px 0;">
+      <h2><i class="fas fa-users"></i> Meet Our Team</h2>
+      <p style="color:rgba(26,26,46,0.4);margin-bottom:16px;">We are passionate about helping you enjoy better vision without compromising on quality, using advanced eye care technology and premium ZEISS lenses tailored to your needs.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="avatar"><img src="pav/optical.png" alt="Mohammed"></div>
+          <div class="name">Mohammed</div>
+          <div class="role">Optical assistant</div>
+          <div class="bio-btn" data-bio="A dedicated Optical Assistant at Pavilion Optometrist, committed to providing friendly and efficient support to every patient. He assists with patient reception, appointment scheduling, frame selection, spectacle dispensing, and ensuring a smooth experience throughout the patient journey. His attention to detail and passion for customer service help patients feel comfortable and confident in their eyewear choices."><i class="fas fa-arrow-right"></i> VIEW BIO</div>
+          <div class="team-bio"></div>
+        </div>
+        <div class="team-card">
+          <div class="avatar"><img src="pav/marketing.png" alt="Diyajal"></div>
+          <div class="name">Diyajal</div>
+          <div class="role">Marketing Department</div>
+          <div class="bio-btn" data-bio="responsible for the marketing and brand presence of Pavilion Optometrist. She manages social media content, digital marketing campaigns, patient engagement initiatives, and promotional activities to help educate the community about eye health and vision care. Her creativity and strategic approach ensure that Pavilion Optometrist remains connected with patients while building a strong and trusted brand in the community."><i class="fas fa-arrow-right"></i> VIEW BIO</div>
+          <div class="team-bio"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BRANDS & PRICING PAGE ===== -->
+  <div id="page-brands" class="page-section hidden">
+    <div class="glass-panel" style="margin:20px 0;">
+      <h2><i class="fas fa-tag"></i> Brands &amp; Pricing</h2>
+      <p style="margin-bottom:12px;color:rgba(26,26,46,0.6);">We partner with leading eyewear brands to bring you quality, style, and value. Below are some of the brands we work with and our transparent pricing.</p>
+      <div class="brands-grid">
+        <div class="brand-card"><span class="brand-img-wrap"><img src="pav/Jimmy.jpg" alt="Jimmy Choo" /></span><div class="brand-name">Jimmy Choo</div></div>
+        <div class="brand-card"><span class="brand-img-wrap"><img src="pav/RayBan.png" alt="Ray-Ban" /></span><div class="brand-name">Ray-Ban</div></div>
+        <div class="brand-card"><span class="brand-img-wrap"><img src="pav/Levis.png" alt="Levi's" /></span><div class="brand-name">Levi's</div></div>
+        <div class="brand-card"><span class="brand-img-wrap"><img src="pav/versace.jpg" alt="Versace" /></span><div class="brand-name">Versace</div></div>
+        <div class="brand-card"><span class="brand-img-wrap"><img src="pav/Polo.png" alt="Polo" /></span><div class="brand-name">Polo</div></div>
+        <div class="brand-card"><span class="brand-img-wrap"><img src="pav/Guess.png" alt="Guess" /></span><div class="brand-name">Guess</div></div>
+      
+      </div>
+      <h3 style="margin:28px 0 14px;color:#1a1a2e;font-weight:500;letter-spacing:0.3px;">Service Pricing</h3>
+      <div class="price-table">
+        <div class="price-row"><span class="label">Driver's Certificate</span><span class="amount">R30 <small>incl.</small></span></div>
+        <div class="price-row"><span class="label">Comprehensive Eye Test (only)</span><span class="amount">R500 <small>incl.</small></span></div>
+        <div class="price-row"><span class="label">Eye Test including Prescription</span><span class="amount">R500 <small>incl.</small></span></div>
+        <div class="price-row"><span class="label">Contact Lens Eye Test</span><span class="amount">R500 <small>incl.</small></span></div>
+        <div class="price-row"><span class="label">Eye Test on Medical Aid</span><span class="amount">R500 – R1000 <small>varies</small></span></div>
+      </div>
+      <p style="color:rgba(26,26,46,0.2);font-size:0.7rem;margin-top:12px;text-align:right;letter-spacing:0.5px;">Terms &amp; Conditions Apply</p>
+    </div>
+  </div>
+
+  <!-- ===== INFO CENTRE PAGE ===== -->
+  <div id="page-info" class="page-section hidden">
+    <div class="glass-panel">
+      <h2><i class="fas fa-info-circle"></i> Info Centre</h2>
+
+      <!-- Banner with search -->
+      <div class="info-banner">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e 0%,#2d1b4e 100%);"></div>
+        <div class="overlay">
+          <h1>📚 Eye Care Knowledge Hub</h1>
+          <p>Expert articles, guides, and answers to your vision questions.</p>
+          <div class="search-box">
+            <input type="text" id="articleSearch" placeholder="Search articles..." />
+            <button onclick="searchArticles()"><i class="fas fa-search"></i> Search</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CATEGORY 1: REFRACTIVE CONDITIONS ===== -->
+      <h3 style="font-size:1.4rem;font-weight:600;color:#1a1a2e;margin-bottom:6px;">Refractive Conditions</h3>
+      <p style="color:rgba(26,26,46,0.5);margin-bottom:12px;">See how small focusing changes can make a big difference to how you see.</p>
+      <div class="category-grid">
+        <div class="category-card">
+          <h3><i class="fas fa-eye"></i> Presbyopia</h3>
+          <p>Age-related loss of near focus, typically starting around age 40. The eye's lens gradually loses flexibility.</p>
+          <button class="explore-link" onclick="toggleInfoDetail(this)">Explore Presbyopia <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Presbyopia is an age-related condition in which the eye gradually loses its ability to focus on nearby objects. It typically begins around the age of 40 and results from the natural aging process affecting the lens inside the eye.<br><br>✅ <strong>Treatment:</strong> Reading glasses, bifocals, progressive lenses, or multifocal contact lenses.</div>
+        </div>
+        <div class="category-card">
+          <h3><i class="fas fa-eye"></i> Astigmatism</h3>
+          <p>An irregular curvature of the cornea or lens causing blurred or distorted vision at all distances.</p>
+          <button class="explore-link" onclick="toggleInfoDetail(this)">Explore Astigmatism <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Astigmatism is a common refractive error caused by an irregularly shaped cornea or lens. This prevents light from focusing properly on the retina, resulting in blurred or distorted vision at all distances.<br><br>✅ <strong>Treatment:</strong> Prescription glasses, toric contact lenses, or refractive surgery.</div>
+        </div>
+        <div class="category-card">
+          <h3><i class="fas fa-eye"></i> Myopia</h3>
+          <p>Myopia (short-sightedness) occurs when distant objects focus short inside the eye, resulting in blurred distance vision.</p>
+          <button class="explore-link" onclick="toggleInfoDetail(this)">Explore Myopia <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Myopia (Short-sightedness) is a refractive condition where light focuses in front of the retina, making distant objects appear blurry while near objects remain clear.<br><br>✅ <strong>Treatment:</strong> Prescription glasses, contact lenses, or orthokeratology.</div>
+        </div>
+        <div class="category-card">
+          <h3><i class="fas fa-eye"></i> Hyperopia</h3>
+          <p>Hyperopia (far-sightedness) occurs when the eye's focal strength is less than normal, making close-up vision difficult.</p>
+          <button class="explore-link" onclick="toggleInfoDetail(this)">Explore Hyperopia <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Hyperopia (Far-sightedness) is a refractive condition where light focuses behind the retina, making near objects appear blurry while distant objects may remain clear.<br><br>✅ <strong>Treatment:</strong> Prescription glasses, contact lenses, or refractive surgery.</div>
+        </div>
+        <div class="category-card">
+          <h3><i class="fas fa-eye"></i> Emmetropia</h3>
+          <p>Emmetropia describes an eye that is perfectly in focus — no refractive error and no optical intervention is required.</p>
+          <button class="explore-link" onclick="toggleInfoDetail(this)">Explore Emmetropia <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Emmetropia is the perfect refractive state of the eye. Light rays entering the eye focus precisely on the retina, providing clear vision at all distances without the need for corrective lenses.<br><br>✅ Regular checkups help maintain this healthy state.</div>
+        </div>
+      </div>
+
+      <div class="info-divider"></div>
+
+      <!-- ===== CATEGORY 2: EYE CONDITIONS & DISEASES ===== -->
+      <h3 style="font-size:1.4rem;font-weight:600;color:#1a1a2e;margin-bottom:6px;">Eye Conditions &amp; Diseases</h3>
+      <p style="color:rgba(26,26,46,0.5);margin-bottom:12px;">Understanding common eye conditions and their treatments.</p>
+      <div class="topic-grid" id="diseaseGrid">
+        <div class="topic-card">
+          <h4>Mature Cataract</h4>
+          <p>A dense clouding of the lens inside the eye. After removing the cataract, the best corrected vision is...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">A mature cataract is a dense clouding of the lens inside the eye that significantly affects vision. The lens becomes opaque and hard, making it difficult to see clearly.<br><br>✅ <strong>Treatment:</strong> Surgical removal of the cataract and replacement with an artificial lens (IOL).</div>
+        </div>
+        <div class="topic-card">
+          <h4>Early Cataract</h4>
+          <p>An early cataract is a slight clouding of the lens inside the eye. A haziness in vision may result during low light or at night...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">An early cataract is a slight clouding of the lens that may cause glare, halos, or haziness in low light conditions. Regular monitoring is recommended.<br><br>✅ <strong>Treatment:</strong> Updated prescription glasses, anti-glare coatings, or surgical removal if progression occurs.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Keratoconus</h4>
+          <p>This is a slow progressive thinning of the cornea (front of the eye). Thinning causes visual distortions which make clear vision...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Keratoconus is a progressive thinning of the cornea that causes it to bulge into a cone-like shape, leading to distorted vision.<br><br>✅ <strong>Treatment:</strong> Specialty contact lenses (RGP, scleral), corneal cross-linking, or corneal transplant in severe cases.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Dry Eye</h4>
+          <p>This very common condition is characterized by dry, scratchy and burning eyes as a result of systemic conditions...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Dry eye syndrome occurs when the eyes do not produce enough tears or produce poor-quality tears. Symptoms include burning, stinging, and a gritty sensation.<br><br>✅ <strong>Treatment:</strong> Artificial tears, prescription eye drops, lifestyle changes, or punctal plugs.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Glaucoma - Open Angle</h4>
+          <p>Open angle glaucoma results from the optic nerve's inability to tolerate the pressure within the eye. Unchecked this...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Open angle glaucoma is the most common form of glaucoma, where the optic nerve is damaged by pressure buildup in the eye.<br><br>✅ <strong>Treatment:</strong> Prescription eye drops, laser therapy, or surgery to lower intraocular pressure.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Glaucoma - Closed Angle</h4>
+          <p>Closed angle glaucoma results from a sudden increase in pressure due to a blockage of the drainage system inside...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Closed angle glaucoma is a medical emergency caused by a sudden blockage of the eye's drainage system, leading to rapid pressure increase.<br><br>✅ <strong>Treatment:</strong> Immediate medical attention, laser iridotomy, or surgery to relieve the blockage.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Diabetic Retinopathy</h4>
+          <p>Diabetes is one of the top causes of blindness in the world occurring in both type I &amp; type II diabetes. In the early...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Diabetic retinopathy is caused by damage to the blood vessels in the retina due to diabetes. It can lead to vision loss if untreated.<br><br>✅ <strong>Treatment:</strong> Blood sugar control, laser therapy, anti-VEGF injections, or vitrectomy.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Macular Degeneration</h4>
+          <p>Macular degeneration is a disease affecting the central vision. More common in the elderly, UV protection from a young...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Age-related macular degeneration (AMD) affects the macula, the part of the retina responsible for central vision.<br><br>✅ <strong>Treatment:</strong> Lifestyle changes, nutritional supplements, anti-VEGF injections, or laser therapy.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Hypertensive Retinopathy</h4>
+          <p>Hypertensive retinopathy is the loss of vision due to poorly controlled high blood pressure. Worldwide this is one of the...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Hypertensive retinopathy is caused by damage to the retinal blood vessels due to high blood pressure.<br><br>✅ <strong>Treatment:</strong> Blood pressure control, regular eye exams, and lifestyle modifications.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Vitreous Floaters</h4>
+          <p>Floaters are small particles that often move about within the clear jelly inside the eye. They are usually harmless but a...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Floaters are small clumps of gel or cells inside the vitreous that cast shadows on the retina. They are usually harmless but can sometimes indicate a retinal tear.<br><br>✅ <strong>Treatment:</strong> Observation, or surgery if they significantly impair vision.</div>
+        </div>
+      </div>
+
+      <div class="info-divider"></div>
+
+      <!-- ===== CATEGORY 3: LENS & COATING OPTIONS ===== -->
+      <h3 style="font-size:1.4rem;font-weight:600;color:#1a1a2e;margin-bottom:6px;">Lens &amp; Coating Options</h3>
+      <p style="color:rgba(26,26,46,0.5);margin-bottom:12px;">Find the right lens design and coating for your vision needs.</p>
+      <div class="topic-grid">
+        <div class="topic-card">
+          <h4>Single Vision</h4>
+          <p>Single Vision lenses have the same power across the entire surface. Available in a variety of...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Single vision lenses have one optical power across the entire lens surface. Used to correct either distance vision or near vision.<br><br>✅ <strong>Pros:</strong> Simple, affordable, wide field of view.<br>❌ <strong>Cons:</strong> Only corrects one distance.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Bifocal</h4>
+          <p>Bifocal lenses are two lenses combined into one. There is a visible line between the two powers; where the upper portion...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Bifocal lenses have two optical powers separated by a visible line. The top corrects distance, the bottom is for near vision.<br><br>✅ <strong>Pros:</strong> Clear vision at two distances.<br>❌ <strong>Cons:</strong> Visible line, no intermediate vision.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Progressive Readers</h4>
+          <p>Progressive readers are specialized lenses that provide a range of clarity for near and intermediate vision...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Progressive lenses offer a seamless transition from distance to near vision without visible lines.<br><br>✅ <strong>Pros:</strong> No visible lines, natural vision, corrects all distances.<br>❌ <strong>Cons:</strong> Adaptation period required.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Multifocal</h4>
+          <p>Multifocal lenses are many lenses combined into one with varying progressive powers. The lens has no...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Multifocal lenses provide multiple optical powers within a single lens, allowing for clear vision at near, intermediate, and far distances.<br><br>✅ <strong>Pros:</strong> Versatile, no need to switch glasses.<br>❌ <strong>Cons:</strong> Adaptation period required.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Anti-reflection Coating</h4>
+          <p>The purpose of an AR coating is to reduce lens surface reflections thus increasing lens transparency and provides the best...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">AR coating reduces reflections on the lens surface, improving clarity and reducing eye strain. It also enhances the appearance of the lenses.<br><br>✅ <strong>Benefits:</strong> Reduced glare, improved night vision, and better cosmetic appearance.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Blue Protection Coating</h4>
+          <p>The Blue Light Coating protects your eyes, reducing strain and safeguarding vision from harmful blue light emitted by...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Blue light coating filters out harmful blue light from digital screens, reducing eye strain and potentially protecting against retinal damage.<br><br>✅ <strong>Benefits:</strong> Less eye strain, better sleep quality, and long-term eye health.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Polarisation</h4>
+          <p>Polarized lenses offer the ultimate in sun protection. Polarisation is the best method to effectively eliminate blinding glare from...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Polarized lenses reduce glare from reflective surfaces like water, snow, and roads. They enhance visual comfort and clarity in bright conditions.<br><br>✅ <strong>Benefits:</strong> Reduced glare, improved visual comfort, and better contrast.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Variable Tint</h4>
+          <p>Adaptive lenses are clear lenses that darken like sunglasses on exposure to UV light. They protect the health of the eye...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Variable tint lenses automatically darken in sunlight and return to clear indoors, providing protection from UV rays.<br><br>✅ <strong>Benefits:</strong> UV protection, convenient all-in-one solution, and comfortable vision in varying light conditions.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Prism</h4>
+          <p>Misalignment or a slight discrepancy in the position of the eyes causes visual fatigue or double vision. Prismatic lenses...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Prism lenses help correct double vision or eye misalignment by bending light to align the images seen by each eye.<br><br>✅ <strong>Benefits:</strong> Reduced double vision, less eye strain, and improved visual comfort.</div>
+        </div>
+        <div class="topic-card">
+          <h4>HRI (High Refractive Index)</h4>
+          <p>HRI Higher refractive index lenses have a greater 'light bending' ability than ordinary lenses, therefore are significantly...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Learn More <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">High Refractive Index lenses are thinner and lighter than standard lenses, making them ideal for strong prescriptions.<br><br>✅ <strong>Benefits:</strong> Thinner edges, lighter weight, and better cosmetic appearance.</div>
+        </div>
+      </div>
+
+      <div class="info-divider"></div>
+
+      <!-- ===== CATEGORY 4: CONTACT LENSES ===== -->
+      <h3 style="font-size:1.4rem;font-weight:600;color:#1a1a2e;margin-bottom:6px;">Contact Lenses</h3>
+      <p style="color:rgba(26,26,46,0.5);margin-bottom:12px;">Modern contact lenses for every vision need and lifestyle.</p>
+      <div class="topic-grid">
+        <div class="topic-card">
+          <h4>Daily Contact Lenses</h4>
+          <p>A daily contact lens provides a healthy and hassle-free alternative over other disposable lenses. Whether worn daily or...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Daily disposable contact lenses offer convenience and hygiene. They are worn once and discarded, reducing the risk of infection.<br><br>✅ <strong>Benefits:</strong> No cleaning, fresh lenses daily, and reduced risk of complications.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Spherical Contact Lenses</h4>
+          <p>A spherical contact lens provides a single fixed focus to create clear vision. In later years this creates a challenge...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Spherical contact lenses correct myopia or hyperopia with a single power across the entire lens.<br><br>✅ <strong>Benefits:</strong> Simple design, widely available, and comfortable for daily wear.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Toric Contact Lenses</h4>
+          <p>A toric contact lens for astigmatism provides the required focus to create clear vision. The advanced technology used in...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Toric contact lenses are specially designed to correct astigmatism. They have different powers in different meridians.<br><br>✅ <strong>Benefits:</strong> Clear vision for astigmatism, stable positioning, and comfort.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Multifocal Contact Lenses</h4>
+          <p>A multifocal disposable contact lens is used to provide clear vision at various distances typically for presbyopic...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Multifocal contact lenses provide clear vision at near, intermediate, and far distances, ideal for presbyopia.<br><br>✅ <strong>Benefits:</strong> Freedom from reading glasses, active lifestyle, and natural vision.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Scleral Lenses</h4>
+          <p>Scleral contact lenses are large, gas-permeable lenses that rest on the white part of your eye (sclera) and create a tear...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Scleral lenses are large GP lenses that vault over the cornea, creating a tear-filled reservoir for comfort. Ideal for irregular corneas.<br><br>✅ <strong>Benefits:</strong> Exceptional comfort, clear vision, and suitable for keratoconus and dry eye.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Hard RGP Lenses</h4>
+          <p>The most prescribed type of hard contact lenses are rigid gas permeable (RGP) lenses. RGP lenses are made from a hard...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Rigid gas permeable lenses provide sharp vision by maintaining their shape on the eye. They allow oxygen to pass through.<br><br>✅ <strong>Benefits:</strong> Sharp vision, durable, and suitable for astigmatism and keratoconus.</div>
+        </div>
+        <div class="topic-card">
+          <h4>First Time CL Wearer</h4>
+          <p>Congrats on your new lenses and your new look! Following these guidelines will assist in caring for your contact lenses...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Congratulations on your new lenses! Follow these guidelines for proper care and comfort:<br><br>✅ Wash hands before handling lenses<br>✅ Use recommended solutions<br>✅ Follow wearing schedule<br>✅ Never sleep in lenses unless prescribed<br>✅ Regular checkups</div>
+        </div>
+        <div class="topic-card">
+          <h4>Contact Lens Hygiene</h4>
+          <p>Following a good contact lens hygiene routine and wearer compliancy of the prescribed medical device is of the utmost importance...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Proper hygiene is essential for safe contact lens wear. Follow these steps:<br><br>✅ Always wash and dry hands before handling lenses<br>✅ Use fresh solution each time<br>✅ Clean and store lenses properly<br>✅ Replace lens cases regularly<br>✅ Follow prescribed wearing schedule</div>
+        </div>
+      </div>
+
+      <div class="info-divider"></div>
+
+      <!-- ===== CATEGORY 5: EYECARE & HEALTH ===== -->
+      <h3 style="font-size:1.4rem;font-weight:600;color:#1a1a2e;margin-bottom:6px;">Eyecare &amp; Health</h3>
+      <p style="color:rgba(26,26,46,0.5);margin-bottom:12px;">Tips and information for maintaining healthy eyes.</p>
+      <div class="topic-grid">
+        <div class="topic-card">
+          <h4>Healthy Eyes</h4>
+          <p>Great news! Your eye examination showed no health concerns. To keep your eyes in top shape, follow our expert tips for daily...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Maintaining healthy eyes is essential for overall well-being. Follow these tips:<br><br>✅ Regular eye exams (every 1-2 years)<br>✅ Wear sunglasses for UV protection<br>✅ Follow the 20-20-20 rule for screen use<br>✅ Eat a balanced diet rich in eye-healthy nutrients<br>✅ Stay hydrated</div>
+        </div>
+        <div class="topic-card">
+          <h4>Vision Therapy</h4>
+          <p>A personalised Vision Therapy program designed to strengthen visual skills such as focusing, tracking, and eye...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Vision therapy is a personalised program of eye exercises designed to improve visual skills and reduce eye strain.<br><br>✅ <strong>Benefits:</strong> Better focusing, tracking, and eye coordination.<br>✅ <strong>Ideal for:</strong> Children with reading difficulties, adults with computer vision syndrome, and post-concussion patients.</div>
+        </div>
+        <div class="topic-card">
+          <h4>UV Protection</h4>
+          <p>UV Protection is essential to preserve the health of the eyes. A UV400 coating on your spectacles or good quality...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">UV protection is essential to prevent damage to the eyes from harmful UV rays. Prolonged exposure can lead to cataracts and macular degeneration.<br><br>✅ <strong>Benefits:</strong> Reduced risk of eye disease, protection for sensitive eyes, and prevention of photokeratitis.<br>✅ UV400 coating or quality sunglasses are recommended.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Myopia Management</h4>
+          <p>A quick guide to understanding how short-sightedness (myopia) can be treated - not just corrected - to reduce the long...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Myopia management involves treatment to slow the progression of short-sightedness, especially in children and teenagers.<br><br>✅ <strong>Treatment:</strong> Myopia control lenses, orthokeratology, atropine eye drops.<br>✅ <strong>Benefits:</strong> Reduced risk of high myopia and associated complications.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Safety &amp; Eye Protection</h4>
+          <p>The risk of injury is often overlooked in our daily lives. Ninety percent of reported eye injuries worldwide could have been...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Eye injuries can happen at work, home, or during sports. Protect your eyes with safety glasses, goggles, and face shields.<br><br>✅ <strong>Benefits:</strong> Prevention of vision loss, protection from debris, and safe vision in hazardous environments.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Screen Time &amp; Device Tips</h4>
+          <p>It's clear that technology is here to stay and screens are virtually everywhere. Finding the right device usage balance is...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Reduce digital eye strain with these tips:<br><br>✅ Follow the 20-20-20 rule: every 20 minutes, look at something 20 feet away for 20 seconds.<br>✅ Adjust screen brightness and contrast.<br>✅ Use blue light filtering lenses.<br>✅ Take regular breaks and blink often.</div>
+        </div>
+      </div>
+
+      <div class="info-divider"></div>
+
+      <!-- ===== CATEGORY 6: EYELID & SURFACE CONDITIONS ===== -->
+      <h3 style="font-size:1.4rem;font-weight:600;color:#1a1a2e;margin-bottom:6px;">Eyelid &amp; Surface Conditions</h3>
+      <p style="color:rgba(26,26,46,0.5);margin-bottom:12px;">Understanding common conditions affecting the eyelids and eye surface.</p>
+      <div class="topic-grid">
+        <div class="topic-card">
+          <h4>Blepharitis</h4>
+          <p>Blepharitis is a common eyelid condition affecting people of all ages and is not contagious, causes itching, redness and...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Blepharitis is inflammation of the eyelids causing redness, itching, and flaky skin. It is not contagious.<br><br>✅ <strong>Treatment:</strong> Warm compresses, eyelid hygiene, and prescribed medications if needed.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Meibomitis</h4>
+          <p>Meibomitis is an Inflammation of the small glands that produce the oily component of the tear layer that keeps...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Meibomitis is inflammation of the meibomian glands, which produce the oily layer of tears. It can cause dry eye symptoms.<br><br>✅ <strong>Treatment:</strong> Warm compresses, eyelid hygiene, and anti-inflammatory medications.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Allergic Conjunctivitis</h4>
+          <p>Allergic conjunctivitis is an inflammation of the thin clear membrane that covers the white of the eye. Most commonly...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Allergic conjunctivitis is an inflammation of the conjunctiva caused by allergens like pollen, dust, or pet dander.<br><br>✅ <strong>Treatment:</strong> Antihistamine eye drops, cold compresses, and avoiding allergens.</div>
+        </div>
+        <div class="topic-card">
+          <h4>GPC</h4>
+          <p>GPC is as a result of the eye developing an allergic reaction, often associated with contact lens intolerance. Removing the...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">GPC (Giant Papillary Conjunctivitis) is an allergic reaction on the inner surface of the eyelid, often associated with contact lens use.<br><br>✅ <strong>Treatment:</strong> Discontinuing lens wear, switching to different lens materials, and prescribed eye drops.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Pterygium</h4>
+          <p>A pterygium is an elevated wedge shaped growth on the surface of the eye, usually on the inside corner of the eye. Exposure...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">A pterygium is a fleshy growth on the conjunctiva that can extend onto the cornea. It is associated with UV exposure.<br><br>✅ <strong>Treatment:</strong> UV protection, lubricating eye drops, and surgical removal if it affects vision.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Pinguecula</h4>
+          <p>A pinguecula is a small elevated mass on the white of the eye. Usually slightly yellow in appearance, caused by UV light...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">A pinguecula is a yellowish growth on the conjunctiva, often caused by UV light exposure or dry environments.<br><br>✅ <strong>Treatment:</strong> UV protection, lubricating eye drops, and surgical removal if symptomatic.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Neovascularisation</h4>
+          <p>Neovascularisation is a complication caused by a lack of oxygen to the cornea commonly found in contact lens over...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Neovascularisation is the growth of new blood vessels into the cornea, often due to contact lens over-wear or oxygen deprivation.<br><br>✅ <strong>Treatment:</strong> Reducing lens wear, switching to high-oxygen lenses, and regular monitoring.</div>
+        </div>
+      </div>
+
+      <div class="info-divider"></div>
+
+      <!-- ===== CATEGORY 7: EYE DROPS & SOLUTIONS ===== -->
+      <h3 style="font-size:1.4rem;font-weight:600;color:#1a1a2e;margin-bottom:6px;">Eye Drops &amp; Solutions</h3>
+      <p style="color:rgba(26,26,46,0.5);margin-bottom:12px;">Lubricating drops and solutions for dry eyes and contact lens care.</p>
+      <div class="topic-grid">
+        <div class="topic-card">
+          <h4>Systane™ Complete</h4>
+          <p>An all-in-one lubricating eye drop that works across all layers of the tear film to...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Systane Complete is an all-in-one lubricating eye drop that works across all layers of the tear film for complete comfort.<br><br>✅ <strong>Benefits:</strong> Long-lasting relief, suitable for sensitive eyes, and preservative-free options available.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Systane™ ULTRA</h4>
+          <p>Fast-acting relief for dry, tired eyes with a preservative-free formula ideal for frequent use and sensitive eyes.</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Systane ULTRA provides fast-acting relief for dry, tired eyes with HP-Guar technology for prolonged comfort.<br><br>✅ <strong>Benefits:</strong> Immediate relief, long-lasting hydration, and preservative-free option.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Optive™ PLUS</h4>
+          <p>Lubricates the surface of the eye and moisturises the ocular surface cells by restoring osmotic...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Optive PLUS lubricates the eye surface and restores osmotic balance for dry eye relief.<br><br>✅ <strong>Benefits:</strong> Restores moisture, comfortable formula, and suitable for moderate to severe dry eye.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Optive™ O2EGA</h4>
+          <p>A unique combination formula containing linseed oil (a source of Omega-3) for rapid...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Optive O2EGA combines lubricating drops with Omega-3 for enhanced dry eye relief.<br><br>✅ <strong>Benefits:</strong> Omega-3 support, rapid relief, and lipid layer restoration.</div>
+        </div>
+        <div class="topic-card">
+          <h4>Opti-Free™ PureMoist</h4>
+          <p>Powered by HydraGlyde™ Moisture Matrix, locks in moisture and resists deposits helping...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">Opti-Free PureMoist is a contact lens solution that locks in moisture and resists deposits.<br><br>✅ <strong>Benefits:</strong> Long-lasting moisture, deposit protection, and comfortable wear.</div>
+        </div>
+        <div class="topic-card">
+          <h4>AOSEPT™ Plus</h4>
+          <p>Provides deep cleaning and long lasting moisture for contact lenses. Ideal for...</p>
+          <button class="topic-link" onclick="toggleInfoDetail(this)">Explore <i class="fas fa-arrow-right"></i></button>
+          <div class="topic-detail">AOSEPT Plus provides deep cleaning and long-lasting moisture for contact lenses with a unique disinfection system.<br><br>✅ <strong>Benefits:</strong> Deep cleaning, preservative-free, and comfortable lens wear.</div>
+        </div>
+      </div>
+
+      <div class="info-divider"></div>
+
+      <!-- ===== FAQ SECTION ===== -->
+      <h3 style="font-size:1.4rem;font-weight:600;color:#1a1a2e;margin:10px 0 6px;">Frequently Asked Questions</h3>
+      <p style="color:rgba(26,26,46,0.4);margin-bottom:16px;">Quick answers to our most common questions.</p>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">How often should I get my eyes tested? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">We recommend a comprehensive eye exam every 1–2 years, or more frequently if you have a pre-existing condition or notice changes in your vision. Regular check-ups help detect issues early.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Do you accept medical aid? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Yes, we work with most major medical aids. Please bring your membership card and we'll assist with the claims process. Our team can also provide guidance on your specific plan's coverage.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">What should I bring to my appointment? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Please bring your current glasses or contact lenses (if applicable), your medical aid card, a form of ID, and any referral letters from your doctor. We'll take care of the rest.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Do you offer driver's certificate testing? <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Absolutely. We provide driver's license and PDP (Public Driver's Permit) eye testing on site. The certificate is issued immediately after your test.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PROMOTIONS PAGE ===== -->
+  <div id="page-promotions" class="page-section hidden">
+    <div class="glass-panel">
+      <h2><i class="fas fa-tags"></i> Promotions</h2>
+      <p style="color:rgba(26,26,46,0.5);margin-bottom:6px;">Check back often for new offers on eye care and eyewear.</p>
+      <div class="promo-list" id="promoList">
+        <div class="promo-empty">No active promotions right now. Check back soon!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BOOK NOW PAGE ===== -->
+  <div id="page-book" class="page-section hidden">
+    <div class="glass-panel" style="margin:20px 0;">
+      <h2><i class="fas fa-calendar-check"></i> Book an Appointment</h2>
+      <p style="margin-bottom:20px;color:rgba(26,26,46,0.5);">Fill in your details and we'll confirm your booking within 24 hours.</p>
+      <form id="bookingForm" class="booking-form">
+        <div class="row2">
+          <input type="text" name="firstName" placeholder="First name" required>
+          <input type="text" name="lastName" placeholder="Last name" required>
+        </div>
+        <input type="email" name="email" placeholder="Email address" required>
+        <input type="tel" name="phone" placeholder="Phone number" required>
+        <div class="row2">
+          <input type="date" name="appointmentDate" required>
+          <select name="preferredTime" required>
+            <option value="">Select service</option>
+            <option>Comprehensive Eye Test</option>
+            <option>Driver's Certificate</option>
+            <option>Contact Lens Consultation</option>
+            <option>Children's Eye Exam</option>
+            <option>Glasses Prescription</option>
+          </select>
+        </div>
+        <select name="service" required>
+          <option value="">Preferred time</option>
+          <option>09:00 – 10:00</option><option>10:00 – 11:00</option>
+          <option>11:00 – 12:00</option><option>13:00 – 14:00</option>
+          <option>14:00 – 15:00</option><option>15:00 – 16:00</option>
+        </select>
+        <textarea name="notes" placeholder="Additional notes (optional)" style="min-height:70px;"></textarea>
+        <button type="submit" class="book-submit"><i class="fas fa-check-circle"></i> Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="tiny-meta">
+    <span><i class="fas fa-cloud-sun"></i> 15°C · Mostly cloudy</span>
+    <span><i class="fas fa-globe"></i> ENG · INTL</span>
+    <span><i class="fas fa-percent"></i> 27%</span>
+    <span class="keyboard-hint"><i class="far fa-clock"></i> 21:50 · 2026/07/02</span>
+    <span style="margin-left:auto;"><i class="fas fa-mobile-alt"></i> <i class="fas fa-laptop"></i></span>
+  </div>
+
+</div>
+
+<!-- JavaScript -->
+<script>
+  (function() {
+    // Page navigation
+    const links = document.querySelectorAll('.nav-links a');
+    const pages = {
+      home: document.getElementById('page-home'),
+      about: document.getElementById('page-about'),
+      services: document.getElementById('page-services'),
+      team: document.getElementById('page-team'),
+      brands: document.getElementById('page-brands'),
+      info: document.getElementById('page-info'),
+      promotions: document.getElementById('page-promotions'),
+      book: document.getElementById('page-book')
+    };
+
+    function showPage(pageId) {
+      Object.values(pages).forEach(p => p.classList.add('hidden'));
+      if (pages[pageId]) pages[pageId].classList.remove('hidden');
+      links.forEach(link => link.classList.remove('active-page'));
+      links.forEach(link => {
+        if (link.dataset.page === pageId) link.classList.add('active-page');
+      });
+    }
+
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const page = this.dataset.page;
+        if (page && pages[page]) { e.preventDefault(); showPage(page); }
+        else e.preventDefault();
+      });
+    });
+
+    // Default to Home page
+    const homePage = document.getElementById('page-home');
+    const homeLink = document.querySelector('.nav-links a[data-page="home"]');
+    if (homePage) homePage.classList.remove('hidden');
+    if (homeLink) {
+      links.forEach(l => l.classList.remove('active-page'));
+      homeLink.classList.add('active-page');
+    }
+
+    // === TEAM BIO TOGGLE ===
+    document.querySelectorAll('.bio-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const card = this.closest('.team-card');
+        const bioDiv = card.querySelector('.team-bio');
+        if (!bioDiv.dataset.contentSet) {
+          bioDiv.textContent = this.dataset.bio || 'Bio not available.';
+          bioDiv.dataset.contentSet = 'true';
+        }
+        bioDiv.classList.toggle('open');
+        const isOpen = bioDiv.classList.contains('open');
+        this.innerHTML = isOpen ? '<i class="fas fa-arrow-up"></i> HIDE BIO' : '<i class="fas fa-arrow-right"></i> VIEW BIO';
+      });
+    });
+
+    // === INFO CENTRE: DETAIL TOGGLE (expandable) ===
+    window.toggleInfoDetail = function(el) {
+      const parent = el.closest('.category-card') || el.closest('.topic-card');
+      if (!parent) return;
+      const detail = parent.querySelector('.topic-detail');
+      if (!detail) return;
+      const isOpen = detail.classList.contains('open');
+      // Close any other open details in the same grid
+      const grid = parent.closest('.category-grid') || parent.closest('.topic-grid');
+      if (grid) {
+        grid.querySelectorAll('.topic-detail.open').forEach(d => {
+          if (d !== detail) {
+            d.classList.remove('open');
+            const btn = d.closest('.category-card')?.querySelector('.explore-link') || d.closest('.topic-card')?.querySelector('.topic-link');
+            if (btn) {
+              btn.innerHTML = btn.innerHTML.replace('HIDE', 'Explore').replace('Learn Less', 'Learn More');
+              const icon = btn.querySelector('i');
+              if (icon) icon.className = 'fas fa-arrow-right';
+            }
+          }
+        });
+      }
+      if (!isOpen) {
+        detail.classList.add('open');
+        el.innerHTML = el.innerHTML.replace('Explore', 'HIDE').replace('Learn More', 'Learn Less');
+        const icon = el.querySelector('i');
+        if (icon) icon.className = 'fas fa-arrow-up';
+      } else {
+        detail.classList.remove('open');
+        el.innerHTML = el.innerHTML.replace('HIDE', 'Explore').replace('Learn Less', 'Learn More');
+        const icon = el.querySelector('i');
+        if (icon) icon.className = 'fas fa-arrow-right';
+      }
+    };
+
+    // === INFO CENTRE: FAQ TOGGLE ===
+    window.toggleFaq = function(el) {
+      const item = el.closest('.faq-item');
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer').forEach(a => {
+        if (a !== answer) {
+          a.classList.remove('open');
+          a.closest('.faq-item').classList.remove('open');
+        }
+      });
+      if (!isOpen) {
+        answer.classList.add('open');
+        item.classList.add('open');
+      } else {
+        answer.classList.remove('open');
+        item.classList.remove('open');
+      }
+    };
+
+    // === INFO CENTRE: SEARCH ===
+    window.searchArticles = function() {
+      const query = document.getElementById('articleSearch').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.category-card, .topic-card');
+      let found = false;
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const match = text.includes(query) || query === '';
+        card.style.display = match ? '' : 'none';
+        if (match) found = true;
+      });
+      let msg = document.getElementById('searchMsg');
+      if (!found && query !== '') {
+        if (!msg) {
+          msg = document.createElement('p');
+          msg.id = 'searchMsg';
+          msg.style.cssText = 'color:rgba(26,26,46,0.4);font-style:italic;padding:20px 0;text-align:center;';
+          msg.textContent = 'No results found matching "' + query + '". Try a different keyword.';
+          document.querySelector('.glass-panel').appendChild(msg);
+        } else {
+          msg.style.display = 'block';
+          msg.textContent = 'No results found matching "' + query + '". Try a different keyword.';
+        }
+      } else if (msg) {
+        msg.style.display = 'none';
+      }
+    };
+
+    document.getElementById('articleSearch').addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') searchArticles();
+    });
+
+  })();
+
+  // === BOOKING FORM ===
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxQTWZSWnXEyPKL1CZbma_19ghhOfPok9ylC3pSYkFvzztxPDJg4GisZ_mHaYbPkybBYA/exec";
+
+  document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = {
+      firstName: this.firstName.value,
+      lastName: this.lastName.value,
+      email: this.email.value,
+      phone: this.phone.value,
+      appointmentDate: this.appointmentDate.value,
+      preferredTime: this.preferredTime.value,
+      service: this.service.value,
+      notes: this.notes ? this.notes.value : ""
+    };
+
+    try {
+      await fetch(WEB_APP_URL, { 
+        method: "POST",
+        body: JSON.stringify(formData)
+      });
+      alert("✅ Booking request sent successfully!");
+      this.reset();
+    } catch (error) {
+      alert("❌ Failed to send booking.");
+      console.error(error);
+    }
+  });
+</script>
+</body>
+</html>
